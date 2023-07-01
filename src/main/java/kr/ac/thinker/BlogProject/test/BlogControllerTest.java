@@ -4,7 +4,6 @@ package kr.ac.thinker.BlogProject.test;
 * 싱글톤 패턴 + 참조 변수를 스프링이 관리해주겠다.
 * */
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
