@@ -27,7 +27,7 @@ spring:
     hibernate:
       # 내가 기존에 User라는 테이블이 있어도, 프로젝트를 재실행할 때마다 테이블을 새로 만들겠다.
       # 데이터베이스는 그대로 남는다.
-      ddl-auto: create
+      ddl-auto: update
       naming:
         # 카멜 표기법을 언더바를 붙이는 변수 표기법으로 바꿔주겠다.
 #        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
@@ -42,4 +42,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  devtools:
+    livereload:
+      enabled: true
 
