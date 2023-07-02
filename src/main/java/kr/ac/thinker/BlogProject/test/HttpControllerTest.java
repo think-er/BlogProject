@@ -15,6 +15,7 @@ public class HttpControllerTest {
     public String lombokTest() {
 //        Member m = new Member(1, "thinker", "1234", "thinker@gmail.com");
 
+        // 생성자의 매개변수 위치를 외울 필요가 없음. 
         Member m = Member.builder().userName("thinker").password("1234").email("thinker@gmail.com").build();
         System.out.println(TAG + "getter : " + m.getId());
         m.setId(5000);
