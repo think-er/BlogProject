@@ -1,3 +1,17 @@
+# 내 블로그 프로젝트에 진입하기 직전에 해당 파일을 한 번 읽고 시작을 하게 된다.
+server:
+  # 내 포트 안에 context를 설정함.
+  port: 8000
+  servlet:
+    # 내 프로젝트에 들어가기 위한 진입점
+    context-path: /blog
+
+# 위의 코드 부분을 적지않으면 아래에 해당하는 코드가 자동으로 실행되는거나 마찬가지임.
+#server:
+#  port: 8080
+#  servlet:
+#    context-path: /
+
 spring:
   mvc:
     view:
