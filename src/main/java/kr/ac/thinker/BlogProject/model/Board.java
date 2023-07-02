@@ -1,11 +1,21 @@
 package kr.ac.thinker.BlogProject.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder // 빌더 패턴
+// ORM -> Java Object을 테이블과 매핑시켜주는 기술
 @Entity
 public class Board {
 
@@ -33,6 +43,9 @@ public class Board {
     @ManyToOne // M : 1, Many = Board : One = User
     @JoinColumn(name = "userId")
     private User user;
+
+    @OneToMany
+    private List<Reply> reply;
 
     @CreationTimestamp
     private Timestamp createDate;

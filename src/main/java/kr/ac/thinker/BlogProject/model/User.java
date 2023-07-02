@@ -1,13 +1,21 @@
 package kr.ac.thinker.BlogProject.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder // 빌더 패턴
 // User 클래스가 MySQL에 테이블을 생성이 된다.
+@Entity
 public class User {
 
     @Id // Primary Key
