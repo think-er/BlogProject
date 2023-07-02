@@ -44,5 +44,5 @@ spring:
         format_sql: true
   devtools:
     livereload:
-      enabled: true
+      enabled: false
 

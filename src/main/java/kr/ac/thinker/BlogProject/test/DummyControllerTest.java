@@ -4,10 +4,17 @@ import kr.ac.thinker.BlogProject.model.RoleType;
 import kr.ac.thinker.BlogProject.model.User;
 import kr.ac.thinker.BlogProject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 // html 파일이 아니라 data를 리턴해주는 컨트롤러 = RestController
 @RestController
@@ -15,7 +22,34 @@ public class DummyControllerTest {
 
     @Autowired // 의존성 주입
     private UserRepository userRepository;
-    
+
+    // http://localhost:8000/blog/dummy/user
+    @GetMapping("/dummy/users")
+    public List<User> list() {
+        return userRepository.findAll();
+    }
+
+    // 한 페이지 당 두 건의 데이터를 리턴받을 예정
+    @GetMapping("/dummy/user")
+    public List<User> pageList(
+            @PageableDefault(size = 2, sort = "id", direction = Sort.Direction.DESC)
+            Pageable pageable) {
+        Page<User> pagingUser = userRepository.findAll(pageable);
+
+        if(pagingUser.isLast()) {
+            System.out.println("마지막 페이지입니다!");
+        }
+        if(pagingUser.isFirst()) {
+            System.out.println("첫번째 페이지입니다!");
+        }
+        if(pagingUser.isEmpty()) {
+            System.out.println("비어있는 페이지입니다!");
+        }
+
+        List<User> users = pagingUser.getContent();
+        return users;
+    }
+
     // {id} 주소로 파라미터를 전달받을 수 있다.
     @GetMapping("/dummy/user/{id}")
     public User detail(@PathVariable int id) {
