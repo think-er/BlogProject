@@ -17,10 +17,11 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="/user/login">로그인</a>
+<%--                경로에 대한 문제를 좀 공부해야할 필요 있음--%>
+                <a class="nav-link" href="/blog/user/loginForm">로그인</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/user/join">회원가입</a>
+                <a class="nav-link" href="/blog/user/joinForm">회원가입</a>
             </li>
         </ul>
     </div>
