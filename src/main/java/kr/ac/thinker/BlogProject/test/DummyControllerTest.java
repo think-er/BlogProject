@@ -4,7 +4,6 @@ import kr.ac.thinker.BlogProject.model.RoleType;
 import kr.ac.thinker.BlogProject.model.User;
 import kr.ac.thinker.BlogProject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -22,18 +21,25 @@ public class DummyControllerTest {
 
     // 요청할 때 전송한 데이터의 바디 부가 json인 경우
     @PutMapping("/dummy/user/{id}")
-    public User updateUser(@PathVariable int id, @RequestBody User requestUser) {
+    public String updateUser(@PathVariable int id, @RequestBody User requestUser) {
         System.out.println("id: " + id);
         System.out.println("password: " + requestUser.getPassword());
         System.out.println("email: " + requestUser.getEmail());
 
-        requestUser.setId(id);
         // DataIntegrityViolationException 데이터 무결성 위반 예외
         // userName의 경우 nullable = false 이기 때문이다.
-        requestUser.setUserName("thinker");
-        userRepository.save(requestUser);
+        User user = userRepository.findById(id).orElseThrow(() -> {
+            return new IllegalStateException("기존 유저 조회에 실패하였습니다.");
+        });
+        user.setPassword(requestUser.getPassword());
+        user.setEmail(requestUser.getEmail());
 
-        return null;
+        // save 함수는 id를 전달하지 않으면 insert를 하고,
+        // id를 전달하면, 해당 id에 대한 데이터가 있으면 update
+        // id를 전달하면, 해당 id에 대한 데이터가 없으면 insert
+        userRepository.save(user);
+
+        return "회원 수정에 성공하였습니다.";
     }
 
     // http://localhost:8000/blog/dummy/user
