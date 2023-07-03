@@ -4,13 +4,16 @@ import kr.ac.thinker.BlogProject.model.RoleType;
 import kr.ac.thinker.BlogProject.model.User;
 import kr.ac.thinker.BlogProject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 // html 파일이 아니라 data를 리턴해주는 컨트롤러 = RestController
 @RestController
@@ -19,9 +22,22 @@ public class DummyControllerTest {
     @Autowired // 의존성 주입
     private UserRepository userRepository;
 
+    @DeleteMapping("/dummy/user/{id}")
+    public String delete(@PathVariable int id) {
+        try {
+            userRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            return "삭제에 실패하였습니다. 해당 id는 데이터베이스에 없습니다.";
+        }
+
+        return "삭제되었습니다. id : " + id;
+    }
+
+    // 함수 종료 시 자동 commit이 된다.
+    @Transactional
     // 요청할 때 전송한 데이터의 바디 부가 json인 경우
     @PutMapping("/dummy/user/{id}")
-    public String updateUser(@PathVariable int id, @RequestBody User requestUser) {
+    public User updateUser(@PathVariable int id, @RequestBody User requestUser) {
         System.out.println("id: " + id);
         System.out.println("password: " + requestUser.getPassword());
         System.out.println("email: " + requestUser.getEmail());
@@ -37,9 +53,14 @@ public class DummyControllerTest {
         // save 함수는 id를 전달하지 않으면 insert를 하고,
         // id를 전달하면, 해당 id에 대한 데이터가 있으면 update
         // id를 전달하면, 해당 id에 대한 데이터가 없으면 insert
-        userRepository.save(user);
+//        userRepository.save(user);
 
-        return "회원 수정에 성공하였습니다.";
+        // 더티 체킹
+        /*
+        * Transactional 이라는 어노테이션을 붙이면 save()를 하지 않아도 업데이트가 되네?
+        * */
+
+        return user;
     }
 
     // http://localhost:8000/blog/dummy/user
