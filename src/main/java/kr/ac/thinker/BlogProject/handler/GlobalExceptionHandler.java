@@ -14,6 +14,6 @@ public class GlobalExceptionHandler {
     // 어노테이션 추가해야한다. -> ControllerAdvice
     @ExceptionHandler(value = Exception.class)
     public ResponseDto<String> handleArgumentException(Exception e) {
-        return new ResponseDto<String>(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        return new ResponseDto<String>(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
     }
 }

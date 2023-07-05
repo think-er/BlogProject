@@ -23,6 +23,6 @@ public class UserApiController {
         user.setRole(RoleType.USER);
         int result = userService.save(user);
         // 자바 오브젝트를 JSON으로 변환해서 리턴 (Jackson)
-        return new ResponseDto<Integer>(HttpStatus.OK, result);
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), result);
     }
 }
