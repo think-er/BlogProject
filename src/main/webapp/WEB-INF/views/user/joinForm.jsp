@@ -4,7 +4,7 @@
 
 <div class="container">
 <%--    우린 이 방식 안쓸거다 JSON으로 모든 데이터를 전송할 것이다. --%>
-<%--    <form action="/user/join" method="POST">--%>
+<%--    <form action="/user/join" method="POST">--  %>
     <form>
         <div class="form-group">
 <%--            label for= 다음의 내용과 input의 id 속성의 값이 왜 일치해야하는거지? --%>
