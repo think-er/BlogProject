@@ -18,7 +18,7 @@ let index = {
 
         $.ajax({
             type: "POST",
-            url: "/blog/api/user",
+            url: "/api/user",
             // JSON.stringify()는 JavaScript 객체 또는 배열을 JSON 문자열로 변환하는 함수
             data: JSON.stringify(data),
             // 요청이 JSON 데이터임을 서버에게 알리는 헤더 정보
@@ -45,7 +45,7 @@ let index = {
         }).done(function (resp) {
             alert("회원가입이 완료되었습니다.");
             console.log(resp);
-            location.href = "/blog";
+            location.href = "/";
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -60,14 +60,14 @@ let index = {
 
         $.ajax({
             type: "POST",
-            url: "/blog/api/user/login",
+            url: "/api/user/login",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json"
         }).done(function (resp) {
             alert("로그인이 완료되었습니다.");
             console.log(resp);
-            location.href = "/blog";
+            location.href = "/";
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

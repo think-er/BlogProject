@@ -4,7 +4,7 @@ server:
   port: 8000
   servlet:
     # 내 프로젝트에 들어가기 위한 진입점
-    context-path: /blog
+    context-path: /
 
 # 위의 코드 부분을 적지않으면 아래에 해당하는 코드가 자동으로 실행되는거나 마찬가지임.
 #server:
