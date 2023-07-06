@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,16 +23,37 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-<%--                경로에 대한 문제를 좀 공부해야할 필요 있음--%>
-                <a class="nav-link" href="/blog/user/loginForm">로그인</a>
-            </li>
-            <li class="nav-item">
-<%--                나는 user라는 폴더에 접근해서 그 폴더 안에 있는 joinForm 파일을 가져오겠다 라는 것--%>
-                <a class="nav-link" href="/blog/user/joinForm">회원가입</a>
-            </li>
-        </ul>
+
+        <c:choose>
+            <%-- 세션이 null이거나 비어있다면 ? --%>
+            <c:when test="${empty sessionScope.principal}">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                            <%-- 경로에 대한 문제를 좀 공부해야할 필요 있음--%>
+                        <a class="nav-link" href="/blog/user/loginForm">로그인</a>
+                    </li>
+                    <li class="nav-item">
+                            <%-- 나는 user라는 폴더에 접근해서 그 폴더 안에 있는 joinForm 파일을 가져오겠다 라는 것--%>
+                        <a class="nav-link" href="/blog/user/joinForm">회원가입</a>
+                    </li>
+                </ul>
+            </c:when>
+            <%-- 그렇지 않다면? --%>
+            <c:otherwise>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog/board/writeForm">글쓰기</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog/user/userForm">회원정보</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog/user/logout">로그아웃</a>
+                    </li>
+                </ul>
+            </c:otherwise>
+        </c:choose>
+
     </div>
 </nav>
 <br/>
