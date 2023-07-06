@@ -21,10 +21,10 @@ public class UserApiController {
 
     // 세션 객체는 스프링 컨테이너가 빈으로 등록해서 가지고 있다.
     // 필요하다면 DI로 받아서 사용할 수 있다.
-    @Autowired
-    private HttpSession session;
+/*    @Autowired
+    private HttpSession session;*/
 
-    @PostMapping("/api/user")
+    @PostMapping("/auth/joinProc")
     public ResponseDto<Integer> save(@RequestBody User user) { // userName, password, email
         System.out.println("UserApiController : save 호출됨");
         user.setRole(RoleType.USER);
@@ -33,10 +33,10 @@ public class UserApiController {
         return new ResponseDto<Integer>(HttpStatus.OK.value(), result);
     }
 
-    // 전통적인 로그인 방식 -> 스프링 시큐리티를 이용해서 로그인 할 예정
+/*    // 전통적인 로그인 방식 -> 스프링 시큐리티를 이용해서 로그인 할 예정
     @PostMapping("/api/user/login")
     public ResponseDto<Integer> login(@RequestBody User user
-//                                      HttpSession session
+//                                      , HttpSession session
     ) {
         System.out.println("UserApiController : login 호출됨");
         User principal = userService.login(user); // 접근주체???
@@ -45,5 +45,7 @@ public class UserApiController {
             session.setAttribute("principal", principal);
         }
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
-    }
+    }*/
+
+
 }

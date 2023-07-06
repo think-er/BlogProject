@@ -13,9 +13,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     // 로그인을 위한 함수
     // JPA 네이밍 전략
     // select * from user where userName = ?(매개변수) and password = ?;
-    User findByUserNameAndPassword(String userName, String password);
+    // User findByUserNameAndPassword(String userName, String password);
 
-//    // nativeQuery?????????
-//    @Query(value = "SELECT * FROM user WHERE userName = ?1 AND password = ?2", nativeQuery = true)
-//    User login(String userName, String password);
+/*    // nativeQuery?????????
+    @Query(value = "SELECT * FROM user WHERE userName = ?1 AND password = ?2", nativeQuery = true)
+    User login(String userName, String password);*/
 }

@@ -28,10 +28,12 @@ public class UserService {
     }
 
     // select 할 때 transaction 시작, 서비스 종료 시에 트랜잭션 종료 (정합성)
-    @Transactional(readOnly = true)
+/*    @Transactional(readOnly = true)
     public User login(User user) {
         return userRepository.findByUserNameAndPassword(user.getUserName(), user.getPassword());
-    }
+    }*/
+
+
 
 
 }

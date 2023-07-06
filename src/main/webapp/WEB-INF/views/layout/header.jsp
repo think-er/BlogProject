@@ -1,9 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<%-- 인증이 되었는지 안되었는지를 확인할 수 있다. --%>
+<%-- 문서를 찾는 능력도, 읽는 능력도 중요할 것 같다...--%>
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal" var="principal"/>
+</sec:authorize>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bootstrap Example</title>
+    <title>thinker's blog</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -16,7 +24,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-
+<%--<h1>${principal}</h1>--%>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <a class="navbar-brand" href="/">thinker</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -26,7 +34,7 @@
 
         <c:choose>
             <%-- 세션이 null이거나 비어있다면 ? --%>
-            <c:when test="${empty sessionScope.principal}">
+            <c:when test="${empty principal}">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                             <%-- 경로에 대한 문제를 좀 공부해야할 필요 있음--%>
