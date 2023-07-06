@@ -4,9 +4,6 @@ let index = {
             this.save();
         });
 
-        $("#btn-login").on("click", () => {
-            this.login();
-        });
     },
 
     save: function () {
@@ -18,7 +15,7 @@ let index = {
 
         $.ajax({
             type: "POST",
-            url: "/api/user",
+            url: "/auth/joinProc",
             // JSON.stringify()는 JavaScript 객체 또는 배열을 JSON 문자열로 변환하는 함수
             data: JSON.stringify(data),
             // 요청이 JSON 데이터임을 서버에게 알리는 헤더 정보
@@ -50,28 +47,6 @@ let index = {
             alert(JSON.stringify(error));
         });
     },
-
-    login: function () {
-        let data = {
-            userName: $("#userName").val(),
-            password: $("#password").val(),
-            email: $("#email").val(),
-        };
-
-        $.ajax({
-            type: "POST",
-            url: "/api/user/login",
-            data: JSON.stringify(data),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json"
-        }).done(function (resp) {
-            alert("로그인이 완료되었습니다.");
-            console.log(resp);
-            location.href = "/";
-        }).fail(function (error) {
-            alert(JSON.stringify(error));
-        });
-    }
 };
 
 index.init();
