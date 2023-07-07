@@ -13,6 +13,9 @@ let index = {
             email: $("#email").val(),
         };
 
+
+        // 자바스크립트 요청의 경우 csrf 토큰이 없기 때문에 막아버린다.
+        // spring security가 csrf 토큰이 없으면 알아서 막아준다.
         $.ajax({
             type: "POST",
             url: "/auth/joinProc",
