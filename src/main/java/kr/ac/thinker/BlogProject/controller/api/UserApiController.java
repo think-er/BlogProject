@@ -6,6 +6,7 @@ import kr.ac.thinker.BlogProject.model.User;
 import kr.ac.thinker.BlogProject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,10 +28,9 @@ public class UserApiController {
     @PostMapping("/auth/joinProc")
     public ResponseDto<Integer> save(@RequestBody User user) { // userName, password, email
         System.out.println("UserApiController : save 호출됨");
-        user.setRole(RoleType.USER);
-        int result = userService.save(user);
+        userService.save(user);
         // 자바 오브젝트를 JSON으로 변환해서 리턴 (Jackson)
-        return new ResponseDto<Integer>(HttpStatus.OK.value(), result);
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 
 /*    // 전통적인 로그인 방식 -> 스프링 시큐리티를 이용해서 로그인 할 예정
@@ -46,6 +46,4 @@ public class UserApiController {
         }
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }*/
-
-
 }

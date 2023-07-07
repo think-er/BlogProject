@@ -1,8 +1,10 @@
 package kr.ac.thinker.BlogProject.service;
 
+import kr.ac.thinker.BlogProject.model.RoleType;
 import kr.ac.thinker.BlogProject.model.User;
 import kr.ac.thinker.BlogProject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 // 스프링 프레임워크의 트랜잭션
@@ -15,16 +17,16 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
     @Transactional
-    public int save(User user) {
-        try {
-            userRepository.save(user);
-            return 1;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("UserService : save() : " + e.getMessage());
-        }
-        return -1;
+    public void save(User user) {
+        String rawPassword = user.getPassword();
+        String encPassword = encoder.encode(rawPassword);
+        user.setPassword(encPassword);
+        user.setRole(RoleType.USER);
+        userRepository.save(user);
     }
 
     // select 할 때 transaction 시작, 서비스 종료 시에 트랜잭션 종료 (정합성)
