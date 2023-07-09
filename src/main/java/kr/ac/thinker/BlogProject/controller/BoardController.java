@@ -12,6 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -26,12 +27,19 @@ public class BoardController {
     @GetMapping({"","/"})
     public String index(Model model, @PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC)
     Pageable pageable) {
-        Page<Board> boardPage = boardService.getList(pageable);
+        Page<Board> boardPage = boardService.getBoardList(pageable);
         List<Board> boardList = boardPage.getContent();
         model.addAttribute("boards", boardPage);
         return "index"; // viewResolver 작동!!!
     }
 
+    @GetMapping("/board/{id}")
+    public String getItemById(@PathVariable int id, Model model) {
+        model.addAttribute("board", boardService.getBoardById(id));
+        return "board/detail";
+    }
+
+    // USER 권한이 필요
     @GetMapping("/board/saveForm")
     public String saveForm() {
         return "board/saveForm";
