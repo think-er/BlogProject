@@ -1,6 +1,7 @@
 package kr.ac.thinker.BlogProject.config.auth;
 
 import kr.ac.thinker.BlogProject.model.User;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,6 +14,7 @@ import java.util.Collection;
 PrincipalDetail을 DI할 것이다.
 */
 
+@Data
 public class PrincipalDetail implements UserDetails {
 
     private User user; // 콤포지션
