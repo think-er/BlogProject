@@ -33,6 +33,9 @@ public class UserApiController {
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 
+    // loginProc를 안만들 것이다. -> Spring Security가 요청을 가로채게 할 것이다.
+
+
 /*    // 전통적인 로그인 방식 -> 스프링 시큐리티를 이용해서 로그인 할 예정
     @PostMapping("/api/user/login")
     public ResponseDto<Integer> login(@RequestBody User user
