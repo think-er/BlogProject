@@ -1,12 +1,19 @@
 package kr.ac.thinker.BlogProject.controller;
 
 import kr.ac.thinker.BlogProject.config.auth.PrincipalDetail;
+import kr.ac.thinker.BlogProject.model.Board;
 import kr.ac.thinker.BlogProject.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 @Controller
 public class BoardController {
@@ -15,10 +22,13 @@ public class BoardController {
     private BoardService boardService;
 
     // 컨트롤러에서 세션을 어떻게 찾는지?
-
-    @GetMapping({"","/"}) // 근데 이렇게 하면 controller에서 세션을 어떻게 확인하고 다른 창을 보여주는거지?
-    public String index(Model model) {
-        model.addAttribute("boards", boardService.getList());
+    // 근데 이렇게 하면 controller에서 세션을 어떻게 확인하고 다른 창을 보여주는거지?
+    @GetMapping({"","/"})
+    public String index(Model model, @PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC)
+    Pageable pageable) {
+        Page<Board> boardPage = boardService.getList(pageable);
+        List<Board> boardList = boardPage.getContent();
+        model.addAttribute("boards", boardPage);
         return "index"; // viewResolver 작동!!!
     }
 
